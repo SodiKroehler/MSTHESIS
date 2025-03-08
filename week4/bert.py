@@ -65,7 +65,6 @@ def train_anything(rdf, modelName):
     train_df, test_df = train_test_split(rdf, test_size=0.2, random_state=42)
     tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
 
-    # Convert datasets to tokenized format
     train_dataset = Dataset.from_pandas(train_df)
     test_dataset = Dataset.from_pandas(test_df)
 
@@ -78,10 +77,8 @@ def train_anything(rdf, modelName):
 
     model = AutoModelForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=2)
 
-    # Prepare data collator for padding sequences
     data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
-    # Define training arguments
     training_args = TrainingArguments(
         output_dir=directory_path+"/results",
         learning_rate=2e-4,
@@ -93,7 +90,6 @@ def train_anything(rdf, modelName):
         logging_strategy="epoch"
     )
 
-    # Define Trainer object for training the model
     trainer = Trainer(
         model=model,
         args=training_args,
@@ -103,10 +99,8 @@ def train_anything(rdf, modelName):
         data_collator=data_collator,
     )
 
-    # Train the model
     trainer.train()
 
-    # Save the trained model
     trainer.save_model(directory_path+"/model")
 
 
@@ -138,7 +132,7 @@ def training_on_all_dataspits_multiclass():
     # rdf = rdf.sample(100) #start with small copy to be sure it works, comment out later
     train_anything(rdf, "model")
 
-def eval_anything(rdf, modelName, label_encoder):
+def eval_anything(rdf, modelName, label_encoder, labelColumn='label'):
     model_path = "./"+modelName+"/model"   
 
     model = AutoModelForSequenceClassification.from_pretrained(model_path)
@@ -161,7 +155,7 @@ def eval_anything(rdf, modelName, label_encoder):
     decoded_labels = label_encoder.inverse_transform(predictions)
 
     
-    true_labels = rdf["label"].values  # True labels
+    true_labels = rdf[labelColumn].values  # True labels
 
     accuracy = accuracy_score(true_labels, predictions)
     precision, recall, f1, _ = precision_recall_fscore_support(true_labels, predictions, average="weighted")
@@ -170,6 +164,7 @@ def eval_anything(rdf, modelName, label_encoder):
     print(f"Precision: {precision:.4f}")
     print(f"Recall: {recall:.4f}")
     print(f"F1 Score: {f1:.4f}")
+    
 
 def eval_training_on_all_dataspits_multiclass():
     rdf = pd.read_csv("../raw/Qbias/week4_cleaned.csv")
@@ -240,7 +235,33 @@ def eval_on_subtitle_left():
     rdf = rdf[rdf['clean'].str.len() > 0]
     
     rdf = rdf[rdf['repeatType'] == 'headline']
-    eval_anything(rdf, 'subtitle_left', label_encoder)
+    eval_anything(rdf, 'subtitle_left', label_encoder, "label_left")
+
+def eval_on_subtitle_right():
+
+    rdf = pd.read_csv("../raw/Qbias/week4_cleaned.csv")
+    rdf.dropna(subset=['clean'], inplace=True)
+    rdf = rdf[rdf['clean'].str.len() > 0]
+
+    label_encoder = preprocessing.LabelEncoder()
+    rdf['label'] = label_encoder.fit_transform(rdf['bias_rating'].tolist())
+    
+    
+    rdf = rdf[rdf['repeatType'] == 'headline']
+    eval_anything(rdf, 'subtitle_right', label_encoder, "label_right")
+
+def eval_on_subtitle_center():
+
+    rdf = pd.read_csv("../raw/Qbias/week4_cleaned.csv")
+    rdf.dropna(subset=['clean'], inplace=True)
+    rdf = rdf[rdf['clean'].str.len() > 0]
+
+    label_encoder = preprocessing.LabelEncoder()
+    rdf['label'] = label_encoder.fit_transform(rdf['bias_rating'].tolist())
+    
+    
+    rdf = rdf[rdf['repeatType'] == 'subtitle']
+    eval_anything(rdf, 'subtitle_center', label_encoder, "label_center")
 
 
 def coutnerStuff():
@@ -304,7 +325,51 @@ if __name__ == "__main__":
     #subtitle_left
     # train_on_subtitle_left()
     # train_on_subtitle_right()
-    train_on_subtitle_center()
+    # train_on_subtitle_center()
     # eval_on_subtitle_left()
+    # eval_on_subtitle_right()
+    eval_on_subtitle_center()
+    # rdf = pd.read_csv("../raw/Qbias/week4_cleaned.csv")
+    # label_encoder = preprocessing.LabelEncoder()
+    # rdf['label'] = label_encoder.fit_transform(rdf['bias_rating'].tolist())
+    # rdf.dropna(subset=['clean'], inplace=True)
+    # rdf = rdf[rdf['clean'].str.len() > 0]
+    
+    # rdf = rdf[rdf['repeatType'] == 'subtitle']
+    # # eval_anything(rdf, 'subtitle_left', label_encoder, "label_left")
+    # modelName = 'subtitle_center'
+    # labelColumn = 'label_center'
+    # model_path = "./"+modelName+"/model"   
+
+    # torch.cuda.empty_cache()
+
+    # model = AutoModelForSequenceClassification.from_pretrained(model_path)
+    # tokenizer = AutoTokenizer.from_pretrained(model_path)
+
+    # # Send model to device (GPU if available)
+    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # model.to(device)
+
+    # headlines = rdf["clean"].tolist()
+    # inputs = tokenizer(headlines, truncation=True, padding=True, return_tensors="pt").to(device)
+    # model.eval()
+    # with torch.no_grad():
+    #     outputs = model(**inputs)
+
+    # # Convert logits to predicted labels
+    # predictions = torch.argmax(outputs.logits, dim=-1).cpu().numpy()
+
+    # # Convert back to original bias categories
+    # decoded_labels = label_encoder.inverse_transform(predictions)
 
     
+    # true_labels = rdf[labelColumn].values  # True labels
+
+    # accuracy = accuracy_score(true_labels, predictions)
+    # precision, recall, f1, _ = precision_recall_fscore_support(true_labels, predictions, average="weighted")
+
+    # print(f"Accuracy: {accuracy:.4f}")
+    # print(f"Precision: {precision:.4f}")
+    # print(f"Recall: {recall:.4f}")
+    # print(f"F1 Score: {f1:.4f}")
+ 
