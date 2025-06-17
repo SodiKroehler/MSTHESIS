@@ -4,6 +4,8 @@ models/**/
 week5/models/
 *.csv
 raw/**
+**/models/**/
+raw/**
 models/
 *.csv
 *.pyc
