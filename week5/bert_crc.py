@@ -21,7 +21,7 @@ SAMPLE_SIZE = 10
 
 def train_anything(rdf, modelName, uncased=True, num_classes=2, label_col='label'):
     start_time = time.time()
-    directory_path = "./"+modelName
+    directory_path = "./models/"+modelName
 
     os.makedirs(directory_path, exist_ok=True)
 
@@ -126,7 +126,7 @@ def run_all_combos():
 
 
 def eval_anything(rdf, modelName, label_encoder, labelColumn='label'):
-    model_path = "./"+modelName+"/model"   
+    model_path = "./models/"+modelName+"/model"   
 
     model = AutoModelForSequenceClassification.from_pretrained(model_path)
     tokenizer = AutoTokenizer.from_pretrained(model_path)

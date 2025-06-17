@@ -1,3 +1,11 @@
 models/**/results/
 models/**/logs/
 models/**/
+**/models/**/
+raw/**
+
+models/
+*.csv
+*.pyc
+week6/gdelt/LOOKUP-GKGTHEMES.TXT
+week8/junk/label_matches.numbers
