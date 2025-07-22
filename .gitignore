@@ -2,6 +2,8 @@ models/**/results/
 models/**/logs/
 models/**/
 **/models/**/
+!raw/*/
+!raw/**/*.py
 raw/**
 
 models/
