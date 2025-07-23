@@ -4,6 +4,7 @@ models/**/
 **/models/**/
 !raw/*/
 !raw/**/*.py
+!raw/ALLSIDES/allsides_articles_toplevel_fromtia.jl
 raw/**
 
 models/

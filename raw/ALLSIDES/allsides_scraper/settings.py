@@ -1,10 +1,11 @@
+import random 
 BOT_NAME = "allsides_scraper"
 
 SPIDER_MODULES = ["allsides_scraper.spiders"]
 NEWSPIDER_MODULE = "allsides_scraper.spiders"
 
 ROBOTSTXT_OBEY = False
-DOWNLOAD_DELAY = 1.0
+DOWNLOAD_DELAY = random.uniform(1, 5)
 # FEEDS = {
 #     "allsides_articles.json": {"format": "json", "overwrite": True}
 # }
@@ -19,7 +20,7 @@ DOWNLOAD_DELAY = 1.0
 FEEDS = {
     'allsides_articles_toplevel.jl': {
         'format': 'jsonlines',
-        'encoding': 'utf8',
+        'encoding': 'utf8', 
     }
 }
 
@@ -29,7 +30,8 @@ DOWNLOAD_HANDLERS = {
     "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
 }
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
-PLAYWRIGHT_BROWSER_TYPE = "chromium"
+# PLAYWRIGHT_BROWSER_TYPE = "chromium"
+PLAYWRIGHT_BROWSER_TYPE = "firefox"
 
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
 # FEED_EXPORT_BATCH_ITEM_COUNT = 10
@@ -43,3 +45,6 @@ PLAYWRIGHT_LAUNCH_OPTIONS = {
     "headless": True,
     "args": ["--disable-dev-shm-usage", "--no-sandbox"],
 }
+RETRY_ENABLED = True
+RETRY_TIMES = 5
+LOG_LEVEL = 'DEBUG'
