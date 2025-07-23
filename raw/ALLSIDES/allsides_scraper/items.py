@@ -10,6 +10,7 @@ class AllSidesArticle(scrapy.Item):
     publish_date = scrapy.Field()
     source_url = scrapy.Field()
     article_text = scrapy.Field()
+    allsides_text = scrapy.Field()
     allsides_url = scrapy.Field()
 
 class AllSidesArticleURL(scrapy.Item):
@@ -17,3 +18,4 @@ class AllSidesArticleURL(scrapy.Item):
     page_num = scrapy.Field()
     allsides_url = scrapy.Field()
     datetime = scrapy.Field()
+    secondary_pull = scrapy.Field()
