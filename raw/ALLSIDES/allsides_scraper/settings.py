@@ -20,8 +20,8 @@ DOWNLOAD_HANDLERS = {
     "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
 }
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
-PLAYWRIGHT_BROWSER_TYPE = "chromium"
-# PLAYWRIGHT_BROWSER_TYPE = "firefox"
+# PLAYWRIGHT_BROWSER_TYPE = "chromium"
+PLAYWRIGHT_BROWSER_TYPE = "firefox"
 
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
 # FEED_EXPORT_BATCH_ITEM_COUNT = 10
@@ -38,3 +38,9 @@ PLAYWRIGHT_LAUNCH_OPTIONS = {
 RETRY_ENABLED = True
 RETRY_TIMES = 5
 LOG_LEVEL = 'DEBUG'
+
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
+}
+
+HTTP_PROXY = 'socks5://127.0.0.1:9050'

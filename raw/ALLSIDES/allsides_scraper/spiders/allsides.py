@@ -11,8 +11,7 @@ import pandas as pd
 import sys
 from scrapy.spidermiddlewares.httperror import HttpError
 import copy
-
-
+import random
 
 CUTOFF_DATE = datetime(2025, 1, 1)
 CUSTOM_ERROR_LOC = "./scrapy_errors.log"
@@ -33,6 +32,10 @@ class AllSidesSpider(scrapy.Spider):
     c1df = pd.read_csv("ALLSIDES/jul23_complete_top_level_pulls.csv")
     c2df = pd.read_csv("ALLSIDES/jul23_incomplete_secondary_pulls.csv")
 
+    completed = pd.read_json('allsides_articles_stage2.jl', lines=True)
+    completed['urlie'] = completed['allsides_url'].str.replace('https://www.allsides.com/', "")
+    completed = completed['urlie'].tolist()
+
     def get_object(self, url):
 
         theRing = None
@@ -52,11 +55,14 @@ class AllSidesSpider(scrapy.Spider):
         return theRing, stageComplete
 
     def start_requests(self):
-        start_num = 4
-        # for page in range(start_num, len(self.c1df) + 1):
-        for page in range(start_num, start_num + 4):
+        start_num = 1000
+        for page in range(start_num, len(self.c1df) + 1):
+        # for page in range(start_num, start_num + 1):
             theRing, stageComplete = self.get_object(self.c1df.iloc[page - 1]["allsides_url"])
             # time.sleep(5) skipping since one at a time rn
+            if theRing['allsides_url'] in self.completed:
+                print(f"skipping {page} as its already done")
+                continue
 
             print(f"Processing page {page} of {len(self.c1df)}: {theRing['allsides_url']}")
             yield scrapy.Request(
@@ -70,7 +76,8 @@ class AllSidesSpider(scrapy.Spider):
                     "playwright_include_page": True,
                     "playwright": True, 
                     "playwright_page_methods": [
-                            PageMethod("wait_for_selector", "#block-views-article-page-redesign-block-1 > div > div", timeout=4000) #block-views-article-page-redesign-block-1 > div > div
+                            PageMethod("wait_for_timeout", random.uniform(6, 20) * 10000),
+                            PageMethod("wait_for_selector", "#block-views-article-page-redesign-block-1 > div > div", timeout=10000) #block-views-article-page-redesign-block-1 > div > div
                             # PageMethod("screenshot", 
                             #             path=str(self.ssdir / f"screenshot-{theRing['allsides_url']}.png"),
                             #             full_page=True)                            
@@ -79,7 +86,8 @@ class AllSidesSpider(scrapy.Spider):
             )
 
     async def errback(self, failure):
-        page = await failure.request.meta.get("playwright_page")
+        # fail = await failure
+        page = failure.request.meta.get("playwright_page")
         if isinstance(failure.value, HttpError):
             real_resp = failure.value.response
             if real_resp.status == 404:
@@ -132,8 +140,8 @@ class AllSidesSpider(scrapy.Spider):
 
 
     async def parse_search_results(self, response):
-
-        search_term = await response.meta["search_term"]
+        # repo = await response
+        search_term = response.meta["search_term"]
         page_num = response.meta["page_num"]
         try:
             articles = response.css("div.view-content > div.views-row")
@@ -159,8 +167,9 @@ class AllSidesSpider(scrapy.Spider):
 
     async def parse_article(self, response):
         item = AllSidesArticle()
-        item["search_term"] = await response.meta["search_term"]
-        item["page_num"] = await response.meta["page_num"]
+        # repo = await response
+        item["search_term"] = response.meta["search_term"]
+        item["page_num"] = response.meta["page_num"]
         item["allsides_url"] = response.url
         source_url = response.meta.get("source_url", None)
         #there's not a huge reason to call this out ahead, we already had to do the request.
@@ -218,7 +227,8 @@ class AllSidesSpider(scrapy.Spider):
 
 
     async def parse_source(self, response):
-        item = await response.meta["item"]
+        # repo = await response
+        item = response.meta["item"]
         try: 
             full_text = response.xpath('//body//*[not(self::script or self::style)]/text()').getall()
             custom_id = int(time.time() * 1000)
