@@ -1,13 +1,4 @@
-models/**/results/
-models/**/logs/
-models/**/
-week5/models/
-*.csv
-raw/**
-**/models/**/
-raw/**
-models/
-*.csv
-*.pyc
-week6/gdelt/LOOKUP-GKGTHEMES.TXT
-week8/junk/label_matches.numbers
+**/.ipynb_checkpoints/*
+**/*.csv
+week8/masterfilelist.txt
+**/models/**
