@@ -12,6 +12,7 @@ class AllSidesArticle(scrapy.Item):
     article_text = scrapy.Field()
     allsides_text = scrapy.Field()
     allsides_url = scrapy.Field()
+    uuid = scrapy.Field()
 
 class AllSidesArticleURL(scrapy.Item):
     search_term = scrapy.Field()
