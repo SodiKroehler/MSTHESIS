@@ -1,0 +1,100 @@
+{
+  "Inspired": {
+    "+": {
+      "political_bias": "CENTER",
+      "ai_stance": "OPTIMISTIC",
+      "ai_regulation_stance": "PRO_REGULATION",
+      "undocumented_immigration_stance": "PERMISSIVE"
+    },
+    "-": {
+      "political_bias": "CENTER",
+      "ai_stance": "PESSIMISTIC",
+      "ai_regulation_stance": "PRO_REGULATION",
+      "undocumented_immigration_stance": "PERMISSIVE"
+    }
+  },
+  "Popular": {
+    "+": {
+      "political_bias": "CENTER",
+      "ai_stance": "OPTIMISTIC",
+      "ai_regulation_stance": "NEUTRAL",
+      "undocumented_immigration_stance": "NEUTRAL"
+    },
+    "-": {
+      "political_bias": "CENTER",
+      "ai_stance": "PESSIMISTIC",
+      "ai_regulation_stance": "PRO_REGULATION",
+      "undocumented_immigration_stance": "PERMISSIVE"
+    }
+  },
+  "Moral": {
+    "+": {
+      "political_bias": "LEFT",
+      "ai_stance": "OPTIMISTIC",
+      "ai_regulation_stance": "PRO_REGULATION",
+      "undocumented_immigration_stance": "PERMISSIVE"
+    },
+    "-": {
+      "political_bias": "LEFT",
+      "ai_stance": "PESSIMISTIC",
+      "ai_regulation_stance": "PRO_REGULATION",
+      "undocumented_immigration_stance": "PERMISSIVE"
+    }
+  },
+  "Civic": {
+    "+": {
+      "political_bias": "CENTER",
+      "ai_stance": "NEUTRAL",
+      "ai_regulation_stance": "PRO_REGULATION",
+      "undocumented_immigration_stance": "STRICT"
+    },
+    "-": {
+      "political_bias": "CENTER",
+      "ai_stance": "PESSIMISTIC",
+      "ai_regulation_stance": "PRO_REGULATION",
+      "undocumented_immigration_stance": "STRICT"
+    }
+  },
+  "Economic": {
+    "+": {
+      "political_bias": "CENTER",
+      "ai_stance": "OPTIMISTIC",
+      "ai_regulation_stance": "ANTI_REGULATION",
+      "undocumented_immigration_stance": "STRICT"
+    },
+    "-": {
+      "political_bias": "CENTER",
+      "ai_stance": "PESSIMISTIC",
+      "ai_regulation_stance": "PRO_REGULATION",
+      "undocumented_immigration_stance": "STRICT"
+    }
+  },
+  "Functional": {
+    "+": {
+      "political_bias": "CENTER",
+      "ai_stance": "OPTIMISTIC",
+      "ai_regulation_stance": "NEUTRAL",
+      "undocumented_immigration_stance": "STRICT"
+    },
+    "-": {
+      "political_bias": "CENTER",
+      "ai_stance": "PESSIMISTIC",
+      "ai_regulation_stance": "PRO_REGULATION",
+      "undocumented_immigration_stance": "STRICT"
+    }
+  },
+  "Ecological": {
+    "+": {
+      "political_bias": "LEFT",
+      "ai_stance": "PESSIMISTIC",
+      "ai_regulation_stance": "PRO_REGULATION",
+      "undocumented_immigration_stance": "PERMISSIVE"
+    },
+    "-": {
+      "political_bias": "LEFT",
+      "ai_stance": "PESSIMISTIC",
+      "ai_regulation_stance": "PRO_REGULATION",
+      "undocumented_immigration_stance": "PERMISSIVE"
+    }
+  }
+}

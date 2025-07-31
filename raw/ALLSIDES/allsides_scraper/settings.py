@@ -37,7 +37,7 @@ PLAYWRIGHT_LAUNCH_OPTIONS = {
 }
 RETRY_ENABLED = True
 RETRY_TIMES = 5
-LOG_LEVEL = 'DEBUG'
+LOG_LEVEL = 'INFO'
 
 # DOWNLOADER_MIDDLEWARES = {
 #     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,

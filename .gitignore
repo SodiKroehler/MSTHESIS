@@ -1,3 +1,7 @@
+**/.ipynb_checkpoints/*
+**/*.csv
+week8/masterfilelist.txt
+**/models/**
 models/**/results/
 models/**/logs/
 models/**/
@@ -11,9 +15,9 @@ models/
 *.csv
 *.pyc
 week6/gdelt/LOOKUP-GKGTHEMES.TXT
-week8/junk/label_matches.numbers
-.DS_Store/**
+**/*.numbers
 .DS_Store
 week12/procon_matrix_v1.json
 .gitignore
 .DS_Store
+.venv/**

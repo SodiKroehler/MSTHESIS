@@ -1,7 +1,7 @@
 from flask import request
 import scrapy
 from datetime import datetime
-from allsides_scraper.items import AllSidesArticle, AllSidesArticleURL
+from allsides_scraper.items import AllSidesArticle
 from scrapy_playwright.page import PageMethod
 from pathlib import Path
 import time
@@ -11,6 +11,8 @@ import pandas as pd
 import sys
 from scrapy.spidermiddlewares.httperror import HttpError
 import copy
+from urllib.parse import urlparse
+import re
 import random
 import re
 
@@ -60,7 +62,6 @@ class AllSidesSpider(scrapy.Spider):
             )
 
     async def errback(self, failure):
-        # fail = await failure
         page = failure.request.meta.get("playwright_page")
         if isinstance(failure.value, HttpError):
             real_resp = failure.value.response
@@ -73,7 +74,6 @@ class AllSidesSpider(scrapy.Spider):
             if item:
                 allsides_url = item.get("allsides_url", "unknown")
         print(f"got to errback for {allsides_url}")
-        # breakpoint()
         if page:
             try:
                 timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
