@@ -17,3 +17,5 @@ models/
 week6/gdelt/LOOKUP-GKGTHEMES.TXT
 week8/junk/label_matches.numbers
 .gitignore
+.venv/**
+.gitignore
