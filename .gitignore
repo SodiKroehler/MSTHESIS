@@ -12,3 +12,8 @@ models/
 *.pyc
 week6/gdelt/LOOKUP-GKGTHEMES.TXT
 week8/junk/label_matches.numbers
+.DS_Store/**
+.DS_Store
+week12/procon_matrix_v1.json
+.gitignore
+.DS_Store
