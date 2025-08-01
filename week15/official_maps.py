@@ -13,8 +13,10 @@ poli_3_map = {
 poli_leaning_map = {
     "FAR_LEFT": -3,
     "LEFT": -2,
+    "LEAN_LEFT": -1,
     "SLIGHT_LEFT": -1,
     "CENTER": 0,
+    "LEAN_RIGHT": 1,
     "SLIGHT_RIGHT": 1,
     "RIGHT": 2,
     "FAR_RIGHT": 3,
@@ -25,15 +27,15 @@ poli_leaning_map = {
     "center": 0,
     "none": None,
     "global": None,
-    '': None,
+    '': None
 }
 
 f_poli_leaning_map = {
     -3: "FAR_LEFT",
     -2: "LEFT",
-    -1: "SLIGHT_LEFT",
+    -1: "LEAN_LEFT",
     0: "CENTER",
-    1: "SLIGHT_RIGHT",
+    1: "LEAN_RIGHT",
     2: "RIGHT",
     3: "FAR_RIGHT",
     None: "UNDEFINED"

@@ -96,6 +96,7 @@ cwfdf[gpt_leaning_name] = cwfdf['gpt_leaning'].map(maps.poli_leaning_map).astype
 cwfdf['source_leaning'] = cwfdf['source'].map(maps.source_leaning_map).astype(str).fillna('')
 cwfdf['source_leaning'] = cwfdf['source_leaning'].map(maps.poli_leaning_map).astype(float)
 cwfdf['rater'] = cwfdf['rater_email'].map(maps.rater_map).astype(str).fillna('')
+cwfdf['gpt_leaning'] = "didn't keep this"
 
 for arti in cwfdf['source_url'].unique():
     abomindable_dictionary[arti] = {
@@ -117,15 +118,12 @@ for arti in cwfdf['source_url'].unique():
         'user_bias_amnt_num_emmet': None,
         'user_bias_cause_sodi': '',
         'user_bias_cause_emmet': '',
-        'set_1_gpt_leaning': None,
-        'set_2_gpt_leaning': None,
-        'set_3_gpt_leaning': None,
-        'set_4_gpt_leaning': None,
         'source_leaning': None,
         'coding_date_sodi': None,
         'coding_date_emmet': None,
         'coding_time_sodi': None,
         'coding_time_emmet': None,
+        'gpt_leaning': None,
         'pull': None,
         'source': None,
         'title': None,
@@ -135,66 +133,89 @@ for arti in cwfdf['source_url'].unique():
         'set_number': None,
         'source_url': arti,
     }
-value_coded_in_other_sets = {}
+value_coded_in_other_sets = {} #is 101 long, so real problem
 
-def allow_write(row, valueKey):
+def allow_write(row, rowValueKey, dictValueKey):
+
+    user_cols = ['user_poli_leaning', 'user_agree_with',
+       'user_article_subject', 'user_wants_to_see', 'coding_date',
+       'coding_time', 'user_ai_leaning', 'user_aireg_leaning',
+       'user_imm_leaning', 'user_bias_amnt', 'user_bias_cause', 'isCoded',
+       'user_poli_leaning_num', 'user_wants_to_see_num', 'user_ai_leaning_num',
+       'user_aireg_leaning_num', 'user_imm_leaning_num', 'user_bias_amnt_num']
+    isAboutIntendedRater = dictValueKey.endswith('_' + row.rater) and rowValueKey in user_cols
+   
+    #first we check if the thing is worth writing
+    if getattr(row, rowValueKey) is None or pd.isna(getattr(row, rowValueKey)):
+        return False
+    
+    if not isAboutIntendedRater:
+        #if its not about the intended rater, we can immediately reject it
+        return False
+
     if abomindable_dictionary[row.source_url]['set_number'] is None:
+        #nothign has happened yet, write away
         return True
     elif row.set_number == abomindable_dictionary[row.source_url]['set_number']:
+        #we're currently coding this set, no worries here
         return True
-    elif abomindable_dictionary[row.source_url][valueKey] is None:
-        # abomindable_dictionary[row.source_url]["values_coded_in_other_sets"][valueKey] = row.set_number
+    elif abomindable_dictionary[row.source_url][dictValueKey] is None:
+        #already coded in a different set, but somehow the value is still None
+        # abomindable_dictionary[row.source_url]["values_coded_in_other_sets"][valueKey] = row.set_number - we dont write here, just return true
+        #but we'll also record it jic
         if row.source_url not in value_coded_in_other_sets:
             value_coded_in_other_sets[row.source_url] = {}
-            value_coded_in_other_sets[row.source_url][valueKey] = [row.set_number]
+            value_coded_in_other_sets[row.source_url][dictValueKey] = [row.set_number]
         else:
-            if valueKey not in value_coded_in_other_sets[row.source_url]:
-                value_coded_in_other_sets[row.source_url][valueKey] = [row.set_number]
+            if dictValueKey not in value_coded_in_other_sets[row.source_url]:
+                value_coded_in_other_sets[row.source_url][dictValueKey] = [row.set_number]
             else:
-                if row.set_number not in value_coded_in_other_sets[row.source_url][valueKey]:
-                    value_coded_in_other_sets[row.source_url][valueKey].append(row.set_number)
+                if row.set_number not in value_coded_in_other_sets[row.source_url][dictValueKey]:
+                    value_coded_in_other_sets[row.source_url][dictValueKey].append(row.set_number)
         return True
     return False
 
 for row in cwfdf.itertuples():
-    if row.user_poli_leaning_num is not None and allow_write(row, 'user_poli_leaning_num_' + row.rater) and pd.notna(row.user_poli_leaning_num):
+    if allow_write(row, 'user_poli_leaning_num', 'user_poli_leaning_num_' + row.rater):
         abomindable_dictionary[row.source_url]['user_poli_leaning_num_' + row.rater] = row.user_poli_leaning_num
         abomindable_dictionary[row.source_url]['coded'] = True
-    if row.user_agree_with is not None and allow_write(row, 'user_agree_with_' + row.rater) and pd.notna(row.user_agree_with):
+    # if row.source_url == 'https://www.npr.org/2025/04/14/nx-s1-5323918/self-deportation-immigration-trump':
+    #     breakpoint()
+    if allow_write(row, 'user_agree_with', 'user_agree_with_' + row.rater):
         abomindable_dictionary[row.source_url]['user_agree_with_' + row.rater] = row.user_agree_with
-    if row.user_article_subject is not None and allow_write(row, 'user_article_subject_' + row.rater) and pd.notna(row.user_article_subject):
+    if allow_write(row, 'user_article_subject', 'user_article_subject_' + row.rater):
         abomindable_dictionary[row.source_url]['user_article_subject_' + row.rater] = row.user_article_subject
-    if row.user_wants_to_see_num is not None and allow_write(row, 'user_wants_to_see_num_' + row.rater) and pd.notna(row.user_wants_to_see_num):
+    if allow_write(row, 'user_wants_to_see_num', 'user_wants_to_see_num_' + row.rater):
         abomindable_dictionary[row.source_url]['user_wants_to_see_num_' + row.rater] = row.user_wants_to_see_num
-    if row.user_ai_leaning_num is not None and allow_write(row, 'user_ai_leaning_num_' + row.rater) and pd.notna(row.user_ai_leaning_num):
+    if allow_write(row, 'user_ai_leaning_num', 'user_ai_leaning_num_' + row.rater):
         abomindable_dictionary[row.source_url]['user_ai_leaning_num_' + row.rater] = row.user_ai_leaning_num
-    if row.user_aireg_leaning_num is not None and allow_write(row, 'user_aireg_leaning_num_' + row.rater) and pd.notna(row.user_aireg_leaning_num):
+    if allow_write(row, 'user_aireg_leaning_num', 'user_aireg_leaning_num_' + row.rater):
         abomindable_dictionary[row.source_url]['user_aireg_leaning_num_' + row.rater] = row.user_aireg_leaning_num
-    if row.user_imm_leaning_num is not None and allow_write(row, 'user_imm_leaning_num_' + row.rater) and pd.notna(row.user_imm_leaning_num):
+    if allow_write(row, 'user_imm_leaning_num', 'user_imm_leaning_num_' + row.rater):
         abomindable_dictionary[row.source_url]['user_imm_leaning_num_' + row.rater] = row.user_imm_leaning_num
-    if row.user_bias_amnt_num is not None and allow_write(row, 'user_bias_amnt_num_' + row.rater) and pd.notna(row.user_bias_amnt_num):
+    if allow_write(row, 'user_bias_amnt_num', 'user_bias_amnt_num_' + row.rater):
         abomindable_dictionary[row.source_url]['user_bias_amnt_num_' + row.rater] = row.user_bias_amnt_num
-    if row.user_bias_cause is not None and allow_write(row, 'user_bias_cause_' + row.rater) and pd.notna(row.user_bias_cause):
+    if allow_write(row, 'user_bias_cause', 'user_bias_cause_' + row.rater):
         abomindable_dictionary[row.source_url]['user_bias_cause_' + row.rater] = str(row.user_bias_cause).strip()
-    if row.gpt_leaning is not None and allow_write(row, 'gpt_leaning'):
+    if allow_write(row, 'gpt_leaning', 'gpt_leaning'):
         abomindable_dictionary[row.source_url]['gpt_leaning'] = row.gpt_leaning
-    if row.source_leaning is not None and allow_write(row, 'source_leaning'):
+    if allow_write(row, 'source_leaning', 'source_leaning'):
         abomindable_dictionary[row.source_url]['source_leaning'] = row.source_leaning
-    if row.coding_date is not None and allow_write(row, 'coding_date_' + row.rater):
+    if allow_write(row, 'coding_date', 'coding_date_' + row.rater):
         abomindable_dictionary[row.source_url]['coding_date_' + row.rater] = row.coding_date
-    if row.coding_time is not None and allow_write(row, 'coding_time_' + row.rater) and pd.notna(row.coding_time):
+    if allow_write(row, 'coding_time', 'coding_time_' + row.rater):
         abomindable_dictionary[row.source_url]['coding_time_' + row.rater] = row.coding_time
-    if row.pull is not None and allow_write(row, 'pull'):
+    if allow_write(row, 'pull', 'pull'):
         abomindable_dictionary[row.source_url]['pull'] = row.pull
-    if row.source is not None and allow_write(row, 'source'):
+    if allow_write(row, 'source', 'source'):
         abomindable_dictionary[row.source_url]['source'] = row.source
-    if row.title is not None and allow_write(row, 'title'):
+    if allow_write(row, 'title', 'title'):
         abomindable_dictionary[row.source_url]['title'] = row.title
-    if row.text is not None and allow_write(row, 'text'):
+    if allow_write(row, 'text', 'text'):
         abomindable_dictionary[row.source_url]['text'] = row.text
-    if row.date is not None and allow_write(row, 'date'):
+    if allow_write(row, 'date', 'date'):
         abomindable_dictionary[row.source_url]['date'] = row.date
-    if row.gkg_id is not None and allow_write(row, 'gkg_id'):
+    if allow_write(row, 'gkg_id', 'gkg_id'):
         abomindable_dictionary[row.source_url]['gkg_id'] = row.gkg_id
     if row.set_number is not None:
         if abomindable_dictionary[row.source_url]['set_number'] is None:
@@ -204,6 +225,8 @@ for row in cwfdf.itertuples():
             #we put it wrong before, we'll fix it now
             abomindable_dictionary[row.source_url]['set_number'] = row.set_number
         #otherwise, it wasn't "coded" in this set, we can leave it for the one it was coded in
+
+
  
 
 combined_wide_form = pd.DataFrame.from_dict(abomindable_dictionary, orient='index')
