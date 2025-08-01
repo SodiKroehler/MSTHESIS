@@ -16,18 +16,28 @@ approved_sources = [
   'nytimes.com', 'msnbc.com', 'theguardian.com',
   'reuters.com', 'apnews.com', 'npr.org',
   'foxnews.com', 'dailycaller.com', 'washingtonexaminer.com',
-  'bbc.com', 'aljazeera.com', 'english.news.cn', 'bbc.co.uk'
+  'bbc.com', 'aljazeera.com', 'english.news.cn', 'bbc.co.uk',
+
+
+  #had to add for manual pull - these are diff names but still same sources (handle later??)
+  'foxbusiness.com'
 ] 
 
 cmbdf['source'] = cmbdf['source_url'].str.lower().str.split('/').str[2].str.replace('www.', '', regex=False)
-approved_as = cmbdf[cmbdf['source'].isin(approved_sources) & cmbdf['pull'].str.contains('jul25_allsides')].copy()#jul25_allsides
+approved_as = cmbdf[cmbdf['source'].isin(approved_sources) & cmbdf['pull'].str.contains('df6')].copy()#jul25_allsides
+
+#on jul 30, we pulled another set of articles, so adding thtat too:
+manual_pull = cmbdf[cmbdf['source'].isin(approved_sources) & cmbdf['pull'].str.contains('df7')].copy()#jul30_allsides
+#this would make the below untrue, but 50 rows makes sense and i dont want to have to figure out which to delete. since we have random state, we're leaving it
+
 #found out that 50 give us a total of 622, so lets sample 78 more from the july and june, or 37 more from each, so 87
-july_imm = cmbdf[cmbdf['pull'] == 'jul25_allsides_imm'].sample(n=89, random_state=42)
-july_ai = cmbdf[cmbdf['pull'] == 'jul25_allsides_ai'].sample(n=89, random_state=42)
+#edit jul28- we were sampling 89 from allsides dataset, which makes no sense. also, we only have 101 from allsides, but want to get more, so well just sample 50 from each of the july pulls
+july_imm = cmbdf[cmbdf['pull'] == 'df4'].sample(n=50, random_state=42)
+july_ai = cmbdf[cmbdf['pull'] == 'df5'].sample(n=50, random_state=42)
 
 
 
-jul25 = pd.concat([approved_as, july_imm, july_ai], ignore_index=True)
+jul25 = pd.concat([approved_as, manual_pull, july_imm, july_ai], ignore_index=True)
 jul25['set_number'] = 'set4'
 em = jul25.copy()
 em['rater_email'] = "emmet.mathieu@gmail.com"

@@ -1,0 +1,100 @@
+{
+  "Inspired": {
+    "+": {
+      "poli": "CENTER",
+      "ai": "OPTIMISTIC",
+      "aireg": "PRO_REGULATION",
+      "imm": "PERMISSIVE"
+    },
+    "-": {
+      "poli": "CENTER",
+      "ai": "PESSIMISTIC",
+      "aireg": "PRO_REGULATION",
+      "imm": "PERMISSIVE"
+    }
+  },
+  "Popular": {
+    "+": {
+      "poli": "CENTER",
+      "ai": "OPTIMISTIC",
+      "aireg": "NEUTRAL",
+      "imm": "NEUTRAL"
+    },
+    "-": {
+      "poli": "CENTER",
+      "ai": "PESSIMISTIC",
+      "aireg": "PRO_REGULATION",
+      "imm": "PERMISSIVE"
+    }
+  },
+  "Moral": {
+    "+": {
+      "poli": "LEFT",
+      "ai": "OPTIMISTIC",
+      "aireg": "PRO_REGULATION",
+      "imm": "PERMISSIVE"
+    },
+    "-": {
+      "poli": "LEFT",
+      "ai": "PESSIMISTIC",
+      "aireg": "PRO_REGULATION",
+      "imm": "PERMISSIVE"
+    }
+  },
+  "Civic": {
+    "+": {
+      "poli": "CENTER",
+      "ai": "NEUTRAL",
+      "aireg": "PRO_REGULATION",
+      "imm": "STRICT"
+    },
+    "-": {
+      "poli": "CENTER",
+      "ai": "PESSIMISTIC",
+      "aireg": "PRO_REGULATION",
+      "imm": "STRICT"
+    }
+  },
+  "Economic": {
+    "+": {
+      "poli": "CENTER",
+      "ai": "OPTIMISTIC",
+      "aireg": "ANTI_REGULATION",
+      "imm": "STRICT"
+    },
+    "-": {
+      "poli": "CENTER",
+      "ai": "PESSIMISTIC",
+      "aireg": "PRO_REGULATION",
+      "imm": "STRICT"
+    }
+  },
+  "Functional": {
+    "+": {
+      "poli": "CENTER",
+      "ai": "OPTIMISTIC",
+      "aireg": "NEUTRAL",
+      "imm": "STRICT"
+    },
+    "-": {
+      "poli": "CENTER",
+      "ai": "PESSIMISTIC",
+      "aireg": "PRO_REGULATION",
+      "imm": "STRICT"
+    }
+  },
+  "Ecological": {
+    "+": {
+      "poli": "LEFT",
+      "ai": "PESSIMISTIC",
+      "aireg": "PRO_REGULATION",
+      "imm": "PERMISSIVE"
+    },
+    "-": {
+      "poli": "LEFT",
+      "ai": "PESSIMISTIC",
+      "aireg": "PRO_REGULATION",
+      "imm": "PERMISSIVE"
+    }
+  }
+}

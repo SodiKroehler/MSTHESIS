@@ -29,7 +29,10 @@ dfj2 = pd.read_csv('/Users/sodikroehler/Documents/WORKBENCH/MSTHESIS/MSTHESIS/ra
 
 
 #allsides jul25
+#there are 1671 rows in the final jl, but we made this file which sorts out na and unnapproved sources, giving us the total of 102 for df6
 dfjas = pd.read_csv('/Users/sodikroehler/Documents/WORKBENCH/MSTHESIS/MSTHESIS/raw/ALLSIDES/ALLSIDES/final_jul25allsides.csv')
+#then the last manual pull was done on july 29, and the results were saved in the following:
+jfjas2 = pd.read_csv('/Users/sodikroehler/Documents/WORKBENCH/MSTHESIS/MSTHESIS/raw/ALLSIDES/manual_pull_jul29/final_manual_scraper_allsides.csv')
 
 #_________________________COMBINE EVERYTHING SEPERATELY________________________
 #first get a seperate df for each pull
@@ -96,13 +99,22 @@ df5 = df5[['source_url', 'pull', 'title', 'text', 'date', 'gkg_id']]
 
 #DATASET 6
 df6 = dfjas[['source_url', 'pull', 'title', 'text', 'date', 'gkg_id']].copy()
-df6[df6['pull'].str.endswith('_ai')]['pull'] = 'df6_ai'
-df6[df6['pull'].str.endswith('_imm')]['pull'] = 'df6_imm'
+df6.loc[df6['pull'].str.endswith('ai'), 'pull'] = 'df6_ai'
+df6.loc[df6['pull'].str.endswith('imm'), 'pull'] = 'df6_imm'
 # cdf.columns = ['source_url', 'pull', 'title', 'text', 'date', 'gkg_id', 'allside_bias', 'human_clean_text', 'human_clean_title']
 
+#DATASET 7
+jfjas2['gkg_id'] = 'unk'
+def combine_texts(text1, text2):
+    return "ALLSIDES SUMMARY: \n" + str(text1) + "\n\n" + "SOURCE ARTICLE TEXT: \n" + str(text2)
+jfjas2['text'] = jfjas2.apply(lambda row: combine_texts(row['text'], row['full_text']), axis=1)
+df7 = jfjas2[['source_url', 'pull', 'title', 'text', 'date', 'gkg_id']].copy()
+df7.loc[df7['pull'].str.endswith('ai'), 'pull'] = 'df7_ai'
+df7.loc[df7['pull'].str.endswith('imm'), 'pull'] = 'df7_imm'
 
-cmbdf = pd.concat([df1, df2, df3, df4, df5, df6], ignore_index=True)
-pull_priority = {'df1': 1, 'df2': 2, 'df3': 3, 'df4': 4, 'df5': 5, 'df6_ai': 0, 'df6_imm': 0}
+
+cmbdf = pd.concat([df1, df2, df3, df4, df5, df6, df7], ignore_index=True)
+pull_priority = {'df1': 1, 'df2': 2, 'df3': 3, 'df4': 4, 'df5': 5, 'df6_ai': 0, 'df6_imm': 0, 'df7_ai': 0, 'df7_imm': 0}
 cmbdf_dedup = (
     cmbdf.assign(pull_rank=cmbdf['pull'].map(pull_priority))
     .sort_values('pull_rank', ascending=False)

@@ -8,7 +8,7 @@ ROBOTSTXT_OBEY = False
 DOWNLOAD_DELAY = random.uniform(1, 5)
 
 FEEDS = {
-    'allsides_articles_stage2.jl': {
+    'manual_allsides_articles_stage2.jl': {
         'format': 'jsonlines',
         'encoding': 'utf8', 
     }
@@ -37,10 +37,10 @@ PLAYWRIGHT_LAUNCH_OPTIONS = {
 }
 RETRY_ENABLED = True
 RETRY_TIMES = 5
-LOG_LEVEL = 'DEBUG'
+LOG_LEVEL = 'INFO'
 
-DOWNLOADER_MIDDLEWARES = {
-    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
-}
+# DOWNLOADER_MIDDLEWARES = {
+#     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
+# }
 
-HTTP_PROXY = 'socks5://127.0.0.1:9050'
+# HTTP_PROXY = 'socks5://127.0.0.1:9050'
