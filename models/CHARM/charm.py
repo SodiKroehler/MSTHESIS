@@ -67,10 +67,11 @@ class CHARM:
     
     def hdbscan_pegger(self, embeddings):
         # embeddings is a pandas column filled with a len(para) x e matrix
-        if not (isinstance(embeddings.iloc[0], np.ndarray) and embeddings.iloc[0].ndim == 2):
+        if not (isinstance(embeddings.iloc[0], np.ndarray):
             raise ValueError("embeddings must be a pandas Series of 2D numpy arrays")
-        para_embeddings = np.stack([e.mean(axis=0) for e in embeddings])
+        # para_embeddings = np.stack([e.mean(axis=0) for e in embeddings])
         #should return a len(paras) x 1 array assigning each paragraph to a peg
+        para_embeddings = np.stack([e for e in embeddings])
         clusterer = hdbscan.HDBSCAN(
             min_cluster_size=4,      #? right? wrong ?
             metric='euclidean',      #eh? idek
@@ -152,7 +153,7 @@ class CHARM:
         # step 2 now. need to combine like paragraphs into pegs.
         k = len(df)
         #too many though. don't want to do elbow as we only want a max
-        df["peg"] = self.hdbscan_pegger(df['embeddings'])
+        df["peg"] = self.hdbscan_pegger(edf['embeddings'])
         #eventually this might be smarter, and take into accunt the guideposts with kmeans, but for now, just use hdbscan.
 
         # step 3 is already done before

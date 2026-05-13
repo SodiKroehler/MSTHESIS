@@ -1,0 +1,232 @@
+{
+  "access": {
+    "embargo": {
+      "active": false,
+      "reason": null
+    },
+    "files": "public",
+    "record": "public",
+    "status": "open"
+  },
+  "created": "2024-01-22T06:29:36.018483+00:00",
+  "custom_fields": {},
+  "deletion_status": {
+    "is_deleted": false,
+    "status": "P"
+  },
+  "files": {
+    "count": 3,
+    "enabled": true,
+    "entries": {
+      "annotations.xlsx": {
+        "access": {
+          "hidden": false
+        },
+        "checksum": "md5:7ee6b60316c64bc6dd7ff715bf69054b",
+        "ext": "xlsx",
+        "id": "5962096e-7cd2-4fb8-bece-c0ba5eaf0900",
+        "key": "annotations.xlsx",
+        "links": {
+          "content": "https://zenodo.org/api/records/10547907/files/annotations.xlsx/content",
+          "self": "https://zenodo.org/api/records/10547907/files/annotations.xlsx"
+        },
+        "metadata": null,
+        "mimetype": "application/octet-stream",
+        "size": 2559297,
+        "storage_class": "L"
+      },
+      "annotators.csv": {
+        "access": {
+          "hidden": false
+        },
+        "checksum": "md5:3f983a0fc940d4be71cf0753d66f65b6",
+        "ext": "csv",
+        "id": "2abde708-aac1-4e88-bd78-24d01716c0f3",
+        "key": "annotators.csv",
+        "links": {
+          "content": "https://zenodo.org/api/records/10547907/files/annotators.csv/content",
+          "self": "https://zenodo.org/api/records/10547907/files/annotators.csv"
+        },
+        "metadata": null,
+        "mimetype": "text/csv",
+        "size": 195055,
+        "storage_class": "L"
+      },
+      "labeled_dataset.xlsx": {
+        "access": {
+          "hidden": false
+        },
+        "checksum": "md5:ff3b030047c2adbabd3458d513c0e661",
+        "ext": "xlsx",
+        "id": "8ba1a56e-93aa-4ebf-be16-897fc8b4dd1e",
+        "key": "labeled_dataset.xlsx",
+        "links": {
+          "content": "https://zenodo.org/api/records/10547907/files/labeled_dataset.xlsx/content",
+          "self": "https://zenodo.org/api/records/10547907/files/labeled_dataset.xlsx"
+        },
+        "metadata": null,
+        "mimetype": "application/octet-stream",
+        "size": 2041091,
+        "storage_class": "L"
+      }
+    },
+    "order": [],
+    "total_bytes": 4795443
+  },
+  "id": "10547907",
+  "is_draft": false,
+  "is_published": true,
+  "links": {
+    "access": "https://zenodo.org/api/records/10547907/access",
+    "access_grants": "https://zenodo.org/api/records/10547907/access/grants",
+    "access_links": "https://zenodo.org/api/records/10547907/access/links",
+    "access_request": "https://zenodo.org/api/records/10547907/access/request",
+    "access_users": "https://zenodo.org/api/records/10547907/access/users",
+    "archive": "https://zenodo.org/api/records/10547907/files-archive",
+    "archive_media": "https://zenodo.org/api/records/10547907/media-files-archive",
+    "communities": "https://zenodo.org/api/records/10547907/communities",
+    "communities-suggestions": "https://zenodo.org/api/records/10547907/communities-suggestions",
+    "doi": "https://doi.org/10.5281/zenodo.10547907",
+    "draft": "https://zenodo.org/api/records/10547907/draft",
+    "file_modification": "https://zenodo.org/api/records/10547907/file-modification",
+    "files": "https://zenodo.org/api/records/10547907/files",
+    "latest": "https://zenodo.org/api/records/10547907/versions/latest",
+    "latest_html": "https://zenodo.org/records/10547907/latest",
+    "media_files": "https://zenodo.org/api/records/10547907/media-files",
+    "parent": "https://zenodo.org/api/records/4474335",
+    "parent_doi": "https://doi.org/10.5281/zenodo.4474335",
+    "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.4474335",
+    "parent_html": "https://zenodo.org/records/4474335",
+    "preview_html": "https://zenodo.org/records/10547907?preview=1",
+    "request_deletion": "https://zenodo.org/api/records/10547907/request-deletion",
+    "requests": "https://zenodo.org/api/records/10547907/requests",
+    "reserve_doi": "https://zenodo.org/api/records/10547907/draft/pids/doi",
+    "self": "https://zenodo.org/api/records/10547907",
+    "self_doi": "https://doi.org/10.5281/zenodo.10547907",
+    "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10547907",
+    "self_html": "https://zenodo.org/records/10547907",
+    "self_iiif_manifest": "https://zenodo.org/api/iiif/record:10547907/manifest",
+    "self_iiif_sequence": "https://zenodo.org/api/iiif/record:10547907/sequence/default",
+    "versions": "https://zenodo.org/api/records/10547907/versions"
+  },
+  "media_files": {
+    "count": 0,
+    "enabled": false,
+    "entries": {},
+    "order": [],
+    "total_bytes": 0
+  },
+  "metadata": {
+    "additional_descriptions": [
+      {
+        "description": "<p>The files where slightly modified on 2024-01-31 due to exposure of sensitive information.</p>",
+        "lang": {
+          "id": "eng",
+          "title": {
+            "en": "English"
+          }
+        },
+        "type": {
+          "id": "notes",
+          "title": {
+            "de": "Anmerkungen",
+            "en": "Notes"
+          }
+        }
+      }
+    ],
+    "creators": [
+      {
+        "person_or_org": {
+          "family_name": "Spinde, Timo and Rudnitckaia, Lada and Sinha, Kanishka, and Hamborg, Felix and and Gipp, Bela and Donnay, Karsten",
+          "name": "Spinde, Timo and Rudnitckaia, Lada and Sinha, Kanishka, and Hamborg, Felix and and Gipp, Bela and Donnay, Karsten",
+          "type": "personal"
+        }
+      }
+    ],
+    "description": "<p>Many people consider news articles to be a reliable source of information on current events. However, due to the range of factors influencing news agencies, such coverage may not always be impartial. Media bias, or slanted news coverage, can have a substantial impact on public perception of events, and, accordingly, can potentially alter the beliefs and views of the public. The main data gap in current research on media bias detection is a robust, representative, and diverse dataset containing annotations of biased words and sentences. In particular, existing datasets do not control for the individual background of annotators, which may affect their assessment and, thus, represents critical information for contextualizing their annotations. In this poster, we present a matrix-based methodology to crowdsource such data using a self-developed annotation platform. We also present MBIC (Media Bias Including Characteristics) - the first sample of 1,700 statements representing various media bias instances. The statements were reviewed by ten annotators each and contain labels for media bias identification both on the word and sentence level. MBIC is the first available dataset about media bias reporting detailed information on annotator characteristics and their individual background. The current dataset already significantly extends existing data in this domain providing unique and more reliable insights into the perception of bias. In future, we will further extend it both with respect to the number of articles and annotators per article.</p>",
+    "publication_date": "2021",
+    "publisher": "Zenodo",
+    "resource_type": {
+      "id": "publication-conferencepaper",
+      "title": {
+        "de": "Konferenzbeitrag",
+        "en": "Conference paper"
+      }
+    },
+    "rights": [
+      {
+        "description": {
+          "en": "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+        },
+        "icon": "cc-by-icon",
+        "id": "cc-by-4.0",
+        "props": {
+          "scheme": "spdx",
+          "url": "https://creativecommons.org/licenses/by/4.0/legalcode"
+        },
+        "title": {
+          "en": "Creative Commons Attribution 4.0 International"
+        }
+      }
+    ],
+    "title": "MBIC \u2013 A Media Bias Annotation Dataset Including Annotator Characteristics"
+  },
+  "parent": {
+    "access": {
+      "owned_by": {
+        "user": "89135"
+      },
+      "settings": {
+        "accept_conditions_text": null,
+        "allow_guest_requests": false,
+        "allow_user_requests": false,
+        "secret_link_expiration": 0
+      }
+    },
+    "communities": {},
+    "id": "4474335",
+    "pids": {
+      "doi": {
+        "client": "datacite",
+        "identifier": "10.5281/zenodo.4474335",
+        "provider": "datacite"
+      }
+    }
+  },
+  "pids": {
+    "doi": {
+      "client": "datacite",
+      "identifier": "10.5281/zenodo.10547907",
+      "provider": "datacite"
+    },
+    "oai": {
+      "identifier": "oai:zenodo.org:10547907",
+      "provider": "oai"
+    }
+  },
+  "revision_id": 6,
+  "stats": {
+    "all_versions": {
+      "data_volume": 3589284252.0,
+      "downloads": 3440,
+      "unique_downloads": 2772,
+      "unique_views": 2351,
+      "views": 2589
+    },
+    "this_version": {
+      "data_volume": 518253402.0,
+      "downloads": 486,
+      "unique_downloads": 432,
+      "unique_views": 332,
+      "views": 354
+    }
+  },
+  "status": "published",
+  "swh": {},
+  "updated": "2024-01-31T08:50:31.656974+00:00",
+  "versions": {
+    "index": 5,
+    "is_latest": true
+  }
+}

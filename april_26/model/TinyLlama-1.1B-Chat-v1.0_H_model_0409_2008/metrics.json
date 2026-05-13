@@ -1,0 +1,9 @@
+{
+  "test_loss": 0.6392322778701782,
+  "test_bias_acc": 0.6503516174402251,
+  "test_bias_f1": 0.7217371837922543,
+  "test_ambi_rmse": 0.11453943699598312,
+  "test_runtime": 61.4996,
+  "test_samples_per_second": 57.805,
+  "test_steps_per_second": 1.821
+}

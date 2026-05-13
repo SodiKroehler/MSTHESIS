@@ -21,3 +21,6 @@ week12/procon_matrix_v1.json
 .gitignore
 .DS_Store
 .venv/**
+envs/**
+**/*.pth
+**/*.csv
